@@ -17,7 +17,7 @@ class ExampleTest extends TestCase
     {
         // 3 Step Process AAA
         
-        // Arrange - Create the word in order to run your test
+        // Arrange - Create the world in order to run your test
         $employer = Employer::factory()->create();
         $job = Job::factory()->create([
             'employer_id' => $employer->id,
