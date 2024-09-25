@@ -33,7 +33,7 @@
         </section>
 
         {{-- Section for Recent Jobs --}}
-        <section>
+        {{-- <section>
             <x-section-heading>Recent Jobs</x-section-heading>
 
             <div class="mt-6 space-y-6">
@@ -42,6 +42,26 @@
                 @endforeach
         
             </div>
+        </section> --}}
+
+        {{-- Section for Recent Jobs --}}
+        <section>
+            <x-section-heading>Recent Jobs</x-section-heading>
+
+            <x-data-table 
+                :columns="[ 
+                    ['label' => 'ID'],
+                    ['label' => 'Title'],
+                    ['label' => 'Salary'],
+                    ['label' => 'Location'],
+                    ['label' => 'Company'],
+                    ['label' => 'Posted On'],
+                    ['label' => 'Actions']
+                ]"
+                ajaxUrl="{{ route('jobs.data') }}" 
+            />
         </section>
+
+        @stack('scripts')
     </div>
 </x-layout>

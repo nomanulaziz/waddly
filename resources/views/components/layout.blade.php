@@ -7,6 +7,9 @@
     <title>Waddly</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    {{-- DataTables CSS --}}
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> --}}
+
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body class="bg-black text-white font-hanken-grotesk pb-20">
@@ -50,5 +53,10 @@
             {{ $slot }}
         </main>
     </div>
+
+    {{-- jQuery and DataTables JS --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> --}}
+
 </body>
 </html>
