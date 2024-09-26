@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\File;
-use Illuminate\Validation\Rules\Password;
 
 class RegisteredUserController extends Controller
 {
@@ -21,19 +20,11 @@ class RegisteredUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RegisterUserRequest $request)
     {
-        // Input Validation
-        $userAttributes = $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(6)],
-        ]);
-
-        $employerAttributes = $request->validate([
-            'employer' => ['required'],
-            'logo' => ['required', File::types(['png', 'jpg', 'jpeg', 'webp', 'svg'])],
-        ]);
+        // Get the validated data
+        $userAttributes = $request->only(['name', 'email', 'password']);
+        $employerAttributes = $request->only(['employer', 'logo']);
 
         //Create a new user
         $user = User::create($userAttributes);
@@ -42,6 +33,9 @@ class RegisteredUserController extends Controller
         //logo -> Instance of Laravel UploadFiles class
         //argument logos -> folder name you want to store image in
         $logoPath = $request->logo->store('logos');
+
+        // Prepend 'storage/' to the saved logo path
+        $logoPath = 'storage/' . $logoPath;
 
         //Create a user employer
         $user->employer()->create([

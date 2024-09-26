@@ -21,4 +21,14 @@ class Employer extends Model
     {
         return $this->hasMany(Job::class);
     }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function averageRating()
+    {
+        return $this->reviews()->avg('rating');
+    }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
-class StoreJobRequest extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,14 @@ class StoreJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required'],
-            'salary' => ['required'],
-            'location' => ['required'],
-            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
-            'url' => ['required', 'active_url'],
-            'tags' => ['nullable'],
+            // User validation rules
+            'name' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'confirmed', Password::min(6)],
+
+            // Employer validation rules
+            'employer' => ['required'],
+            'logo' => ['required', 'file', 'mimes:png,jpg,jpeg,webp,svg'],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
 use Carbon\Carbon;
@@ -62,18 +63,11 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
         // dd($request->all());
 
-        $attributes  = $request->validate([
-            'title' => ['required'],
-            'salary' => ['required'],
-            'location' => ['required'],
-            'schedule' => ['required', Rule::in(['Part Time', 'Full Time'])],
-            'url' => ['required', 'active_url'],
-            'tags' => ['nullable'],
-        ]);
+        $attributes  = $request->validated();
 
         // if the request has feature store it as a boolean
         $attributes['featured'] = $request->has('featured');

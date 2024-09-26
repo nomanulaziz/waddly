@@ -24,7 +24,6 @@ Route::post('/users/{id}', [UsersController::class, 'update'])->name('users.upda
 Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
 
-// Route::get('/', [JobController::class, 'index']);
 Route::get('/', [JobController::class, 'index'])->name('jobs.index');
 Route::get('jobs/data', [JobController::class, 'getJobs'])->name('jobs.data');
 
@@ -47,8 +46,4 @@ Route::middleware('guest')->group(function () {
 });
 
 
-Route::delete('/logout', [SessionController::class, 'destroy'])->middleware('auth');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout')->middleware('auth');
