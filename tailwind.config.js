@@ -15,6 +15,9 @@ export default {
       },
       fontSize: {
         "2xs": ".625rem" // 10px
+      },
+      width: {
+        'fill': '-webkit-fill-available',
       }
     },
   },

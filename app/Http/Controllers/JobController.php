@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
-use Carbon\Carbon;
+use App\Traits\DateFormat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,7 @@ use Yajra\DataTables\DataTables;
 
 class JobController extends Controller
 {
+    use DateFormat;
     /**
      * Display a listing of the resource.
      */
@@ -44,7 +45,7 @@ class JobController extends Controller
                         'title' => $job->title,
                         'salary' => $job->salary,
                         'location' => $job->location,
-                        'created_at' => Carbon::parse($job->created_at)->format('d-m-Y'),
+                        'created_at' => $this->custom_date_format($job->created_at, 'd-m-Y'),
                         'company' => $job->employer ? $job->employer->name : 'N/A',
                     ];
                 });
