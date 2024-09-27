@@ -74,7 +74,9 @@
                 { data: 'salary' },
                 { data: 'location' },
                 { data: 'company' },
-                { data: 'created_at' },
+                { 
+                    data: 'created_at'
+                },
                 {
                     data: 'id',
                     render: function(data, type, row) {

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreJobRequest;
 use App\Models\Job;
 use App\Models\Tag;
-use App\Traits\DateFormat;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,21 @@ use Yajra\DataTables\DataTables;
 
 class JobController extends Controller
 {
-    use DateFormat;
+    // using new Laravel Attribute class approach 
+    // accessor for 'created_at' field
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Carbon::parse($value),
+        );
+    }
+
+    // accessor for 'created_at' field
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value); 
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +60,7 @@ class JobController extends Controller
                         'title' => $job->title,
                         'salary' => $job->salary,
                         'location' => $job->location,
-                        'created_at' => $this->custom_date_format($job->created_at, 'd-m-Y'),
+                        'created_at' => $job->created_at->format('d-m-Y'),
                         'company' => $job->employer ? $job->employer->name : 'N/A',
                     ];
                 });
